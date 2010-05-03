@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+$KCODE = 'u'
+
+# Main script (this) directory.
+include_path = File.dirname(File.expand_path($0))
+include_path += '/../lib/ruby-ccg'
+include_path = File.expand_path(include_path)
+
+require "#{include_path}/ccg-base.rb"
+
+unless Ccg::VERSION == '0.2'
+	$stderr.puts('Incompatible version of CCG library.')
+	exit(1)
+end
+
+Ccg::cards.each_pair do |card_type, card_list|
+	puts "Тип карт: #{card_type}\n=================\n\n"
+	card_list.each do |card|
+		puts "#{card['name']}\n-----------------"
+		tmp = "Цена: #{card['cost']}"
+		if !card['add'].nil?
+			tmp += " (+ 2 #{card['add']})"
+		end
+		puts tmp
+		puts "Тип: #{card['type']}"
+		puts "Атака: #{card['attack']}" unless card['attack'].nil?
+		puts "HP: #{card['hp']}" unless card['hp'].nil?
+		puts "Карта для класса: #{card['primary']}" unless card['primary'].nil?
+		tmp = ''
+		card['abilities'].each do |ability|
+			tmp += "\n    #{ability['name']}"
+			tmp += " (#{ability['param']})" unless ability['param'].nil?
+			tmp += ": #{ability['target']}" unless ability['target'].nil?
+		end
+		puts "Способности:#{tmp}" if tmp.length > 0
+		puts
+	end
+end

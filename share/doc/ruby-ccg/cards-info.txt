@@ -1,0 +1,91 @@
+1. LICENSE: GPL v3+
+---------------------------------------
+
+2. Abilities
+---------------------------------------
+	* can have @param
+
+Creatures:
+	Annihilator: auto-destroys with attack any creature (other than a hero) with an attack of 0.
+	Blast: deals @param number of damage to a creature in the opposite slot. If there is no creature
+		deals @param number of damage to enemy hero (counts as a spell)
+	Deathless: takes no damage if owner's Darkness mana is greater then or equal to 10
+	Enforcer: increases attack of all allied creatures by @param
+	Fierce: returns half damage done to the unit back (still takes normal damage).
+	Frost: damages enemy creatures and hero by 1 every turn. Does NOT stack with itself.
+	Healing aura: heals friendly creatures by @param every turn (but NOT itself)
+	Healing link: heals owner by @param every turn
+	Link: adds +1 @param mana every turn
+	Magic proof: takes half damage from spells
+	Martyr: takes @param number of damage every turn (subject to damage resistance).
+	Regeneration: heals @param damage to itself every turn
+	Resistant: creature takes @param damage less from all sources
+	Spell immunity: immune to spells
+	Slayer: deals @param damage to enemy hero every turn
+	Tactician: attacks all enemies, including enemy hero
+	Wave attack: attacks all enemy creatures
+
+Any (when comes into play only):
+	Boost: increases your @param mana by 1
+	Charge: increases your @param mana by 2
+	Drive: increases your @param mana by 3
+	Shock: decreases foe's @param mana by 1
+	Awe: decreases foe's @param mana by 2
+	Law breaker: decreases Law mana by @param for both players
+	Chaotic visage: decreases all foe's mana (except Psychic and Chaos) by @param,
+		increases foe's Chaos mana by @param
+	Disrupter: causes all foe creatures to take a number of damage equal to
+		their cost x @param
+	Justice: deals a number of damage to enemy creatures equal to their attack x @param
+	Hypnosis: damage to enemy hero and opposite creature equals to opposite creature's attack
+	Raw power: damage to enemy hero equals to your @param mana + 3.
+
+3. target
+---------------------------------------
+self:all - your hero and creatures
+self:creatures - your creatures
+self:one - one of your creatures
+self:hero - your hero
+foe:all - enemy hero and creatures
+foe:creatures - enemy creatures
+foe:one - one of enemy creatures
+foe:hero - enemy hero
+
+Don't use *:one targets with creatures or else...
+
+4. action (abilities), can have @param and @target
+---------------------------------------
+damage - deals @param number of damage
+heal - heals @param number of damage
+destroy - destroys target(s) whose cost is greater that @param
+
+5. primary
+---------------------------------------
+Primary user of a card (class name).
+
+6. mana
+---------------------------------------
+Starts at 1-2, 1, 1, 0-1. With exception of 'Psychic' which starts at 0.
+Increases by 1 every turn (including the 1st one).
+Capped at 100 (with exception of 'Psychic' which is capped at 6).
+
+Mana list: Light, Darkness, Chaos, Law, Psychic
+
+7. Psychic
+---------------------------------------
+'Psychic' mana is a generic energy required to cast class-specific spells.
+Class-specific spells also cost 2 additonal mana of another type.
+
+8. Only one card can be played per turn
+---------------------------------------
+
+9. Hero's HP is 50 at the beginning and is capped at 100 by default.
+---------------------------------------
+
+10. Number of cards
+---------------------------------------
+Per hand: 4x Light, 4x Darkness, 4x Law, 4x Chaos, 3x class, 1x non-class
+
+11. Slot class
+---------------------------------------
+'abilities' property can be nil. Also do not change it's contents unless you really like bugs :}

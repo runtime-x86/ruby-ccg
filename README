@@ -1,0 +1,2 @@
+Dependencies:
+	ruby | ruby1.8, libjson-ruby | libjson-ruby1.8

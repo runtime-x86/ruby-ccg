@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+$KCODE = 'u'
+
+require 'pp'
+
+# Main script (this) directory.
+include_path = File.dirname(File.expand_path($0))
+include_path += '/../lib/ruby-ccg'
+include_path = File.expand_path(include_path)
+
+require "#{include_path}/ccg-base.rb"
+
+unless Ccg::VERSION == '0.2'
+	$stderr.puts('Incompatible version of CCG library.')
+	exit(1)
+end
+
+# For testing purposes.
+def do_test_attack(card_game, hero_num, type, index, position)
+	current_hero = card_game.heroes[hero_num] # Attacking hero
+	other_hero = card_game.heroes[(hero_num - 1).abs] # Defending hero
+
+	puts "#{current_hero.name}:"
+
+	# You shouldn't use indexes blindly but it's ok for testing purposes.
+	# if current_hero.enabled_cards[type][index]
+		card_to_play = current_hero.hand.cards[type][index]
+		puts "\t#{card_to_play['name']} played."
+		card_game.w2p_card = card_to_play
+		card_game.w2p_card_at_pos = position
+	# end
+
+	# 1 card per turn.
+
+	# End turn. Attacking.
+	card_game.state.end_turn!
+
+	# Check heroes.
+	if current_hero.destroyed? or other_hero.destroyed?
+		puts 'Someone is defeated...'
+	end
+end
+
+# Creating main game object
+card_game = Ccg::Game.new
+card_game.state.initial_player = :player_1
+card_game.on(:creature_attacks) do |hero, creature_position|
+	# Keep in mind, that everything is already finished here,
+	# so there may be no creature by this time in this slot.
+	# Save their names / pictures by hand.
+	puts "\t#{hero.name}'s creature in slot #{creature_position} attacks!"
+end
+
+# There is card_game.start_new! method to start a new game after another one was complete.
+# It clears ALL hero data. It will NOT clear on()'s closures.
+
+# -------------------------------------------------------------------
+# Setting player names
+card_game.heroes[0].name = 'Haruka' # Player
+card_game.heroes[1].name = 'Cat' # CPU
+
+# Applying some specialization info (characters classes) we will use.
+card_game.heroes[0].character_class = 'shinigami'
+card_game.heroes[1].character_class = 'druid'
+
+# Shuffle cards
+card_game.heroes.each { |h| h.hand.shuffle! }
+
+# Game start.
+card_game.state.run!
+# -------------------------------------------------------------------
+2.times do |step|
+	# Will use step as position and card index for simplicity.
+	# Player 1.
+	do_test_attack(card_game, 0, 'Darkness', step, step)
+	# Player 2.
+	do_test_attack(card_game, 1, 'Light', step, step)
+end
+# -------------------------------------------------------------------
+# Debug
+card_game.heroes.each do |h|
+	puts "\n#{h.name}'s HP: #{h.hp}."
+	puts "#{h.name}'s mana:"
+	puts h.mana.pretty_inspect
+end

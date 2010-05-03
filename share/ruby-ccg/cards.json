@@ -1,0 +1,648 @@
+{
+	"Light": [
+		{
+			"name": "Spirit guard",
+			"cost": 1,
+			"type": "creature",
+			"attack": 1,
+			"hp": 6,
+			"abilities": [
+				{
+					"name": "Boost",
+					"param": "Law"
+				}
+			]
+		},
+		{
+			"name": "Cure",
+			"cost": 2,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "heal",
+					"param": 5,
+					"target": "self:creatures"
+				}
+			]
+		},
+		{
+			"name": "Lightning bolt",
+			"cost": 3,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 15,
+					"target": "foe:one"
+				}
+			]
+		},
+		{
+			"name": "Apostle",
+			"cost": 4,
+			"type": "creature",
+			"attack": 5,
+			"hp": 20,
+			"abilities": [
+				{
+					"name": "Link",
+					"param": "Light"
+				}
+			]
+		},
+		{
+			"name": "Elven sorceress",
+			"cost": 5,
+			"type": "creature",
+			"attack": 5,
+			"hp": 18,
+			"abilities": [
+				{
+					"name": "blast",
+					"param": 5
+				},
+				{
+					"name": "Magic proof"
+				}
+			]
+		},
+		{
+			"name": "Unicorn",
+			"cost": 6,
+			"type": "creature",
+			"attack": 6,
+			"hp": 22,
+			"abilities": [
+				{
+					"name": "Healing link",
+					"param": 3
+				}
+			]
+		},
+		{
+			"name": "Light pillar",
+			"cost": 7,
+			"type": "wall",
+			"attack": 0,
+			"hp": 30,
+			"abilities": [
+				{
+					"name": "Healing aura",
+					"param": 2
+				},
+				{
+					"name": "Martyr",
+					"param": 2
+				}
+			]
+		},
+		{
+			"name": "Purification",
+			"cost": 8,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Awe",
+					"param": "Law"
+				},
+				{
+					"name": "heal",
+					"param": 15,
+					"target": "self:hero"
+				}
+			]
+		},
+		{
+			"name": "Angel",
+			"cost": 10,
+			"type": "creature",
+			"attack": 10,
+			"hp": 40,
+			"abilities": [
+				{
+					"name": "drive",
+					"param": "Light"
+				},
+				{
+					"name": "drive",
+					"param": "Law"
+				}
+			]
+		}
+	],
+	"Darkness":[
+		{
+			"name": "Phantom lizard",
+			"cost": 1,
+			"type": "creature",
+			"attack": 2,
+			"hp": 8,
+			"abilities": [
+				{
+					"name": "Regeneration",
+					"param": 1
+				}
+			]
+		},
+		{
+			"name": "Spectral wisp",
+			"cost": 2,
+			"type": "creature",
+			"attack": 2,
+			"hp": 10,
+			"abilities": [
+				{
+					"name": "Boost",
+					"param": "Chaos"
+				}
+			]
+		},
+		{
+			"name": "Mist",
+			"cost": 3,
+			"type": "wall",
+			"attack": 0,
+			"hp": 25,
+			"abilities": [
+				{
+					"name": "Link",
+					"param": "Darkness"
+				}
+			]
+		},
+		{
+			"name": "Forbidden art",
+			"cost": 4,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Charge",
+					"param": "Chaos"
+				},
+				{
+					"name": "Charge",
+					"param": "Light"
+				}
+			]
+		},
+		{
+			"name": "Dark force",
+			"cost": 5,
+			"type": "creature",
+			"attack": 5,
+			"hp": 22,
+			"abilities": [
+				{
+					"name": "Resistant",
+					"param": 3
+				}
+			]
+		},
+		{
+			"name": "Abyssal hound",
+			"cost": 6,
+			"type": "creature",
+			"attack": 6,
+			"hp": 20,
+			"abilities": [
+				{
+					"name": "Slayer",
+					"param": 2
+				}
+			]
+		}
+	],
+	"Law": [
+		{
+			"name": "Retribution",
+			"cost": 1,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Disrupter",
+					"param": 1
+				}
+			]
+		},
+		{
+			"name": "Law keeper",
+			"cost": 2,
+			"type": "creature",
+			"attack": 2,
+			"hp": 9,
+			"abilities": [
+				{
+					"name": "Link",
+					"param": "Law"
+				}
+			]
+		},
+		{
+			"name": "War priest",
+			"cost": 3,
+			"type": "creature",
+			"attack": 4,
+			"hp": 14,
+			"abilities": [
+				{
+					"name": "Boost",
+					"param": "Light"
+				}
+			]
+		},
+		{
+			"name": "Commander",
+			"cost": 4,
+			"type": "creature",
+			"attack": 4,
+			"hp": 16,
+			"abilities": [
+				{
+					"name": "Enforcer",
+					"param": 1
+				}
+			]
+		},
+		{
+			"name": "Justice",
+			"cost": 5,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Justice",
+					"param": 1
+				}
+			]
+		},
+		{
+			"name": "Crusader",
+			"cost": 6,
+			"type": "creature",
+			"attack": 7,
+			"hp": 30
+		},
+		{
+			"name": "Judgement",
+			"cost": 7,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 10,
+					"target": "foe:all"
+				}
+			]
+		}
+	],
+	"Chaos": [
+		{
+			"name": "Chaos whisper",
+			"cost": 1,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Law breaker",
+					"param": 1
+				},
+				{
+					"name": "damage",
+					"param": 3,
+					"target": "foe:creatures"
+				}
+			]
+		},
+		{
+			"name": "Firefly of doom",
+			"cost": 2,
+			"type": "creature",
+			"attack": 6,
+			"hp": 6,
+			"abilities": [
+				{
+					"name": "Link",
+					"param": "Chaos"
+				}
+			]
+		},
+		{
+			"name": "Wormhole",
+			"cost": 3,
+			"type": "creature",
+			"attack": 3,
+			"hp": 13,
+			"abilities": [
+				{
+					"name": "Annihilator"
+				}
+			]
+		},
+		{
+			"name": "Paradox",
+			"cost": 4,
+			"type": "creature",
+			"attack": 6,
+			"hp": 15,
+			"abilities": [
+				{
+					"name": "Spell immunity"
+				},
+				{
+					"name": "Boost",
+					"param": "Darkness"
+				}
+			]
+		},
+		{
+			"name": "The Sign",
+			"cost": 5,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 1,
+					"target": "foe:creatures"
+				},
+				{
+					"name": "Chaotic visage",
+					"param": 2
+				}
+			]
+		},
+		{
+			"name": "Entropy",
+			"cost": 6,
+			"type": "spell",
+			"abilities": [
+				{
+					"name": "Disrupter",
+					"param": 3
+				}
+			]
+		}
+	],
+	"Psychic": [
+		{
+			"name": "Snow fairy",
+			"cost": 1,
+			"type": "creature",
+			"add": "Law",
+			"attack": 2,
+			"hp": 10,
+			"primary": "druid",
+			"abilities": [
+				{
+					"name": "Frost"
+				}
+			]
+		},
+		{
+			"name": "Dryad",
+			"cost": 2,
+			"type": "creature",
+			"add": "Light",
+			"attack": 2,
+			"hp": 12,
+			"primary": "druid",
+			"abilities": [
+				{
+					"name": "Tactician"
+				}
+			]
+		},
+		{
+			"name": "Heal",
+			"cost": 3,
+			"type": "spell",
+			"add": "Light",
+			"primary": "druid",
+			"abilities": [
+				{
+					"name": "heal",
+					"param": 7,
+					"target": "self:all"
+				}
+			]
+		},
+		{
+			"name": "Calamity",
+			"cost": 4,
+			"type": "spell",
+			"add": "Chaos",
+			"primary": "druid",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 10,
+					"target": "foe:all"
+				},
+				{
+					"name": "damage",
+					"param": 10,
+					"target": "self:all"
+				}
+			]
+		},
+		{
+			"name": "Nekomata",
+			"cost": 5,
+			"type": "creature",
+			"add": "Darkness",
+			"attack": 6,
+			"hp": 35,
+			"primary": "druid",
+			"abilities": [
+				{
+					"name": "Fierce"
+				}
+			]
+		},
+		{
+			"name": "Dark will",
+			"cost": 1,
+			"type": "spell",
+			"add": "Darkness",
+			"primary": "shinigami",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 3,
+					"target": "foe:creatures"
+				},
+				{
+					"name": "heal",
+					"param": 3,
+					"target": "self:creatures"
+				}
+			]
+		},
+		{
+			"name": "Black cat",
+			"cost": 2,
+			"type": "creature",
+			"add": "Chaos",
+			"attack": 2,
+			"hp": 13,
+			"primary": "shinigami",
+			"abilities": [
+				{
+					"name": "Shock",
+					"param": "Law"
+				}
+			]
+		},
+		{
+			"name": "Forbidden Law",
+			"cost": 6,
+			"type": "spell",
+			"add": "Law",
+			"primary": "shinigami",
+			"abilities": [
+				{
+					"name": "destroy",
+					"param": 6,
+					"target": "foe:creatures"
+				},
+				{
+					"name": "destroy",
+					"param": 6,
+					"target": "self:creatures"
+				}
+			]
+		},
+		{
+			"name": "Tiny dragon",
+			"cost": 1,
+			"type": "creature",
+			"add": "Chaos",
+			"attack": 2,
+			"hp": 11,
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "Wave attack"
+				}
+			]
+		},
+		{
+			"name": "Sylph",
+			"cost": 2,
+			"type": "creature",
+			"add": "Light",
+			"attack": 3,
+			"hp": 14,
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "Magic proof"
+				},
+				{
+					"name": "heal",
+					"param": 5,
+					"target": "self:creatures"
+				}
+			]
+		},
+		{
+			"name": "Dark fire",
+			"cost": 3,
+			"type": "spell",
+			"add": "Darkness",
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "Raw power",
+					"param": "Darkness"
+				}
+			]
+		},
+		{
+			"name": "Baba Yaga",
+			"cost": 4,
+			"type": "creature",
+			"add": "Law",
+			"attack": 4,
+			"hp": 14,
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "Hypnosis"
+				}
+			]
+		},
+		{
+			"name": "Fire elemental",
+			"cost": 5,
+			"type": "creature",
+			"add": "Chaos",
+			"attack": 7,
+			"hp": 28,
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "damage",
+					"param": 9,
+					"target": "foe:creatures"
+				}
+			]
+		},
+		{
+			"name": "Koschei the Deathless",
+			"cost": 6,
+			"type": "creature",
+			"add": "Darkness",
+			"attack": 8,
+			"hp": 40,
+			"primary": "sorcerer",
+			"abilities": [
+				{
+					"name": "Deathless"
+				}
+			]
+		},
+		{
+			"name": "War blessing",
+			"cost": 1,
+			"type": "spell",
+			"add": "Light",
+			"primary": "paladin",
+			"abilities": [
+				{
+					"name": "Boost",
+					"param": "Law"
+				},
+				{
+					"name": "heal",
+					"param": 8,
+					"target": "self:hero"
+				}
+			]
+		},
+		{
+			"name": "Cherub apprentice",
+			"cost": 2,
+			"type": "creature",
+			"add": "Light",
+			"attack": 1,
+			"hp": 12,
+			"primary": "paladin",
+			"abilities": [
+				{
+					"name": "Healing aura",
+					"param": 1
+				}
+			]
+		},
+		{
+			"name": "Betrayal",
+			"cost": 3,
+			"type": "spell",
+			"add": "Chaos",
+			"primary": "paladin",
+			"abilities": [
+				{
+					"name": "L-D mana swap"
+				}
+			]
+		}
+	]
+}
