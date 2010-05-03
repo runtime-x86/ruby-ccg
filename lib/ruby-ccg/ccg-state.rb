@@ -8,8 +8,6 @@ module Ccg
 	# It goes 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 0.
 	class State
 		attr_reader :current_state, :initial_player
-		# start is either :player_1 or :player_2.
-		# Which player goes first.
 		def initialize
 			@states_work = {}
 			@states = [
@@ -63,6 +61,7 @@ module Ccg
 			@started = false
 			self
 		end
+		# Only use before calling run!
 		def initial_player=(player = :player_1)
 			if @started
 				raise 'You cannot modify Ccg::State::initial_player after run method was called.'
