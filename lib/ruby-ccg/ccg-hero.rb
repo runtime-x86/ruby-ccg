@@ -1,18 +1,28 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 module Ccg
 	class Hero
 		attr_accessor :hp, :max_hp, :name, :character_class
-		attr_reader :mana # is a hash: mana type => amount of mana
-		attr_reader :step # round number of current game
-		attr_reader :field # player's creature field
-		attr_reader :hand # player's cards
+		# Is a hash: mana_type => amount_of_mana.
+		attr_reader :mana
+		# Round number of current game.
+		attr_reader :step
+		# Player's creature field. A #Ccg::Field object.
+		attr_reader :field
+		# Player's cards in hand. A #Ccg::Hand object.
+		attr_reader :hand
 
-		# Which cards can hero play right now (hash)
-		# Example: enabled_cards['Light'][0] - true or false
+		# Which cards can hero play right now (hash).
+		#
+		# Example:
+		#
+		#     enabled_cards['Light'][0] - true or false
 		attr_reader :enabled_cards 
 
 		def initialize
@@ -37,6 +47,7 @@ module Ccg
 			self
 		end
 
+		# Player's character class (a string).
 		def character_class=(new_class)
 			@character_class = new_class
 			@hand.special_class = new_class
@@ -177,11 +188,13 @@ module Ccg
 			self
 		end
 
+		# Destroy this hero (HP = 0).
 		def do_destroy!
 			@hp = 0
 		end
 
-		def mana_swap(a, b)
+		# Swap mana value of type 'a' with value of type 'b'.
+		def mana_swap!(a, b)
 			@mana[a], @mana[b] = @mana[b], @mana[a]
 			self
 		end

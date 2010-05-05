@@ -1,6 +1,9 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 module Ccg
@@ -106,7 +109,7 @@ module Ccg
 			self
 		end
 
-		# Creature in this slot is destroyed and slot is not empty.
+		# Creature in this slot is destroyed and slot is now empty.
 		def do_destroy!
 			unless self.empty? # Do nothing if slot is empty
 				# Check 'on destroy abilities' (currently none) then reset.
@@ -115,6 +118,7 @@ module Ccg
 			self
 		end
 
+		# Is this slot empty?
 		def empty?
 			return @card.nil?
 		end

@@ -1,6 +1,9 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 module Ccg
@@ -15,6 +18,7 @@ module Ccg
 			self
 		end
 
+		# Is field empty?
 		def empty?
 			result = true
 			@position.each do |slot|

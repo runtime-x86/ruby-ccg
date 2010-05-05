@@ -1,21 +1,24 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 require 'json'
 
-# Extend NilClass with 'each' method.
-# Does nothing :)
 class NilClass
+	# Extend NilClass with 'each' method.
+	# Does nothing :)
 	def each
 		self
 	end
 end
 
-# 1.8 .choice is called .sample in 1.9...
 unless Array.method_defined?(:choice)
 	class Array
+		# 1.8 .choice is called .sample in 1.9.
 		alias_method :choice, :sample
 	end
 end
@@ -38,10 +41,16 @@ module Ccg
 		end
 	end
 
+	# Contains character class names available to player.
+	#
+	# An array: [class_name_1, class_name_2...]
 	def self::classes
 		@@classes
 	end
 
+	# Contains info about all cards by type.
+	#
+	# A hash: type => [card_1, card2...]
 	def self::cards
 		@@cards
 	end

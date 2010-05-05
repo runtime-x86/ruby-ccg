@@ -1,6 +1,9 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 module Ccg
@@ -62,6 +65,8 @@ module Ccg
 			self
 		end
 		# Only use before calling run!
+		#
+		# Throws: RuntimeError.
 		def initial_player=(player = :player_1)
 			if @started
 				raise 'You cannot modify Ccg::State::initial_player after run method was called.'

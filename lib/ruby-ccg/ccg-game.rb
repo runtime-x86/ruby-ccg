@@ -1,6 +1,9 @@
 # encoding: utf-8
+#
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
+#
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
+#
 # Version: 0.2
 
 module Ccg
@@ -8,9 +11,14 @@ module Ccg
 	# You must create it to use anything here like, say,
 	# card_game = Ccg::Game.new
 	class Game
-		attr_reader :heroes, :state
-		# Want to play card 'w2p_card' at position 'w2p_card_at_pos' for current hero.
-		attr_accessor :w2p_card, :w2p_card_at_pos
+		# An array of #Ccg::Hero objects with a size of 2.
+		attr_reader :heroes
+		# Current game state. See #Ccg::State for details.
+		attr_reader :state
+		# Want to play card 'w2p_card'
+		attr_accessor :w2p_card
+		# ... at position 'w2p_card_at_pos' for current hero.
+		attr_accessor :w2p_card_at_pos
 
 		def initialize
 			@closures = {}
@@ -43,6 +51,7 @@ module Ccg
 			self
 		end
 
+		# Starts a new game. Resets state and heroes' info.
 		def start_new!
 			@last_played_slot = nil
 			@game_first_step = true
@@ -51,8 +60,17 @@ module Ccg
 			self
 		end
 
-		# :creature_attacks
-		#     hero, slot_number
+		# Handlers for various events.
+		#
+		# *Usage*:
+		#
+		#     ccg_obj.on(action) do |params|
+		#         # Some code here.
+		#     end
+		#
+		# *Events* (event, params - description):
+		#
+		# [:creature_attacks] hero, slot_number - occurs after any creature attack
 		def on(action, &closure)
 			if [:creature_attacks].include?(action)
 				@closures[action] = closure
@@ -156,7 +174,7 @@ module Ccg
 						end
 
 					when 'L-D mana swap'
-						current_hero.mana_swap('Light', 'Darkness')
+						current_hero.mana_swap!('Light', 'Darkness')
 				end # case
 			end # each
 
