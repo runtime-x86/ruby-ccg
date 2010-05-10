@@ -31,7 +31,8 @@ Ccg::cards.each_pair do |card_type, card_list|
 		puts "HP: #{card['hp']}" unless card['hp'].nil?
 		puts "Карта для класса: #{card['primary']}" unless card['primary'].nil?
 		tmp = ''
-		card['abilities'].each do |ability|
+		card_abilities = card['abilities'] || []
+		card_abilities.each do |ability|
 			tmp += "\n    #{ability['name']}"
 			tmp += " (#{ability['param']})" unless ability['param'].nil?
 			tmp += ": #{ability['target']}" unless ability['target'].nil?

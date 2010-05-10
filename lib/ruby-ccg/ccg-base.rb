@@ -8,14 +8,6 @@
 
 require 'json'
 
-class NilClass
-	# Extend NilClass with 'each' method.
-	# Does nothing :)
-	def each
-		self
-	end
-end
-
 if RUBY_VERSION < '1.9'
 	class Array
 		# .sample was called .choice before 1.9

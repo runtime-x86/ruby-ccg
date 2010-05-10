@@ -98,7 +98,10 @@ module Ccg
 			current_hero = @heroes[hero_num] # Attacking hero
 			other_hero = @heroes[(hero_num - 1).abs] # Defending hero
 
-			card['abilities'].each do |ability|
+			# If card['abilities'] is nil make variable an empty array.
+			card_abilities = card['abilities'] || []
+			# Check abilities.
+			card_abilities.each do |ability|
 				case ability['name']
 					when 'Blast'
 						if other_hero.field.position[position].empty?

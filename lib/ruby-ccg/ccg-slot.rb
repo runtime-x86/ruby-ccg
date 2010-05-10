@@ -54,6 +54,8 @@ module Ccg
 
 			# Link to card abilities
 			@abilities = card['abilities']
+			# If it nil make it an empty array.
+			@abilities ||= []
 
 			@card_type = card['type'].to_s
 
