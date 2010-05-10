@@ -8,7 +8,8 @@
 
 module Ccg
 	class Hero
-		attr_accessor :hp, :max_hp, :name, :character_class
+		attr_accessor :hp, :max_hp, :name
+		attr_reader :character_class
 		# Is a hash: mana_type => amount_of_mana.
 		attr_reader :mana
 		# Round number of current game.
