@@ -16,10 +16,10 @@ class NilClass
 	end
 end
 
-unless Array.method_defined?(:choice)
+if RUBY_VERSION < '1.9'
 	class Array
-		# 1.8 .choice is called .sample in 1.9.
-		alias_method :choice, :sample
+		# .sample was called .choice before 1.9
+		alias_method :sample, :choice
 	end
 end
 

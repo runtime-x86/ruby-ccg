@@ -44,7 +44,7 @@ module Ccg
 							# Add 1 non-class card.
 							@cards[key].push(value.reject { |item|
 								!item['primary'].nil? && item['primary'] == @special_class
-							}.choice)
+							}.sample)
 						else
 							# Normal card selection (1 per 4 cards).
 							x = group_length / 4
