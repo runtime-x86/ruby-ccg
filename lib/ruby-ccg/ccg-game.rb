@@ -11,9 +11,9 @@ module Ccg
 	# You must create it to use anything here like, say,
 	# card_game = Ccg::Game.new
 	class Game
-		# An array of #Ccg::Hero objects with a size of 2.
+		# An array of Ccg::Hero objects with a size of 2.
 		attr_reader :heroes
-		# Current game state. See #Ccg::State for details.
+		# Current game state. See Ccg::State for details.
 		attr_reader :state
 		# Want to play card 'w2p_card'
 		attr_accessor :w2p_card
@@ -22,7 +22,7 @@ module Ccg
 
 		def initialize
 			@closures = {}
-			@state = Ccg::State.new
+			@state = State.new
 			@state.on(:state_p1_start) do
 				@w2p_card = nil; @w2p_card_at_pos = nil
 				@heroes[0].start_turn!
@@ -55,7 +55,7 @@ module Ccg
 		def start_new!
 			@last_played_slot = nil
 			@game_first_step = true
-			@heroes = [Ccg::Hero.new, Ccg::Hero.new]
+			@heroes = [Hero.new, Hero.new]
 			@state.reset!
 			self
 		end
@@ -80,7 +80,7 @@ module Ccg
 
 		# Find card (a Hash) by name. Returns nil if nothing found.
 		def find_card(name)
-			Ccg::cards.each_value do |card_list|
+			CARDS.each_value do |card_list|
 				found = card_list.index{ |x| x['name'] == name }
 
 				# Return first found result. Names should be unique anyway.

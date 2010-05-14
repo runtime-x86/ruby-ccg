@@ -39,7 +39,7 @@ module Ccg
 			@cards[type] = []
 
 			card_names.slice(0..4).each do |card_name|
-				found = Ccg::cards[type].index{ |x| x['name'] == card_name }
+				found = CARDS[type].index{ |x| x['name'] == card_name }
 				if found.nil?
 					raise "Card '#{card_name}' was not found. You can't really continue net game."
 				else

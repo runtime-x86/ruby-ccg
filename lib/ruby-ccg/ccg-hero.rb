@@ -14,9 +14,9 @@ module Ccg
 		attr_reader :mana
 		# Round number of current game.
 		attr_reader :step
-		# Player's creature field. A #Ccg::Field object.
+		# Player's creature field. A Ccg::Field object.
 		attr_reader :field
-		# Player's cards in hand. A #Ccg::Hand object.
+		# Player's cards in hand. A Ccg::Hand object.
 		attr_reader :hand
 
 		# Which cards can hero play right now (hash).
@@ -29,14 +29,14 @@ module Ccg
 		def initialize
 			@enabled_cards = {}
 			@mana = {}
-			@field = Ccg::Field.new(@mana)
-			@hand = Ccg::Hand.new
+			@field = Field.new(@mana)
+			@hand = Hand.new
 			@character_class = ''
 			@step = 0
 			@name = ''
 			@hp = 50
 			@max_hp = 100
-			Ccg::cards.each_key do |key|
+			CARDS.each_key do |key|
 				@mana[key] = 0
 			end
 			random_mana = ['Law', 'Light', 'Chaos', 'Darkness'].shuffle

@@ -24,7 +24,7 @@ module Ccg
 		# If there was something in hand... too bad now it's gone.
 		def shuffle!
 			unless @special_class.nil?
-				Ccg::cards.each_pair do |key, value| #each group of cards
+				CARDS.each_pair do |key, value| #each group of cards
 					group_length = value.length
 					@cards[key] = []
 					if group_length < 5

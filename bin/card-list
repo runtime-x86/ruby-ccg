@@ -17,7 +17,7 @@ unless Ccg::VERSION == '0.2'
 	exit(1)
 end
 
-Ccg::cards.each_pair do |card_type, card_list|
+Ccg::CARDS.each_pair do |card_type, card_list|
 	puts "Тип карт: #{card_type}\n=================\n\n"
 	card_list.each do |card|
 		puts "#{card['name']}\n-----------------"
