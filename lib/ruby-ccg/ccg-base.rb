@@ -5,6 +5,8 @@
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
 # Version: 0.2
+#
+# Note: Do not expect this code to call clone() or dup(). Do it manually :}
 
 require 'json'
 
