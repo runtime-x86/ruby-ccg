@@ -4,7 +4,7 @@
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2
+# Version: 0.2-1
 
 module Ccg
 	# Main game class.
@@ -13,8 +13,6 @@ module Ccg
 	class Game
 		# An array of Ccg::Hero objects with a size of 2.
 		attr_reader :heroes
-		# Current game state. See Ccg::State for details.
-		attr_reader :state
 		# Want to play card 'w2p_card'
 		attr_accessor :w2p_card
 		# ... at position 'w2p_card_at_pos' for current hero.
@@ -91,6 +89,44 @@ module Ccg
 			nil # Nothing found
 		end
 
+		def end_hero_turn!
+			@state.end_turn!
+			self
+		end
+
+		# Move to next state. Can cause end of turn.
+		def next_step!
+			@state.next!
+			self
+		end
+
+		# Returns current state:
+		#
+		# * :state_p1_start
+		# * :state_p1_act
+		# * :state_p1_end
+		# * :state_p2_start
+		# * :state_p2_act
+		# * :state_p2_end
+		def current_state
+			@state.current_state
+		end
+
+		# See Ccg::State#initial_player for details.
+		def initial_player
+			@state.initial_player
+		end
+
+		def initial_player=(x)
+			@state.initial_player = x
+		end
+
+		# See Ccg::State#run! for details.
+		def run!
+			@state.run!
+			self
+		end
+
 		private
 
 		def play_card!(hero_num, card, position)
@@ -107,7 +143,9 @@ module Ccg
 						if other_hero.field.position[position].empty?
 							other_hero.do_damage!(ability['param'].to_i, :magic)
 						else
-							other_hero.field.position[position].do_damage!(ability['param'].to_i, :magic)
+							other_hero.field.position[position].do_damage!(
+								ability['param'].to_i, :magic
+							)
 						end
 
 					# Increase 'param' mana by 1.
@@ -118,9 +156,12 @@ module Ccg
 					when 'Charge'
 						current_hero.mana_change!(2, ability['param'])
 
-					# Each enemy creature take a number of damage equal to it's cost * @param
+					# Each enemy creature take a number of damage equal
+					# to it's cost * @param
 					when 'Disrupter'
-						other_hero.do_damage_creatures!(slot.cost * ability['param'].to_i, :magic)
+						other_hero.do_damage_creatures!(
+							slot.cost * ability['param'].to_i, :magic
+						)
 
 					# Increase 'param' mana by 3.
 					when 'Drive'
@@ -142,18 +183,26 @@ module Ccg
 					# decreases all foe's mana (except Psychic and Chaos)
 					# by 'param', increases foe's Chaos mana by 'param'.
 					when 'Chaotic visage'
-						other_hero.mana_change_all!(-1 * ability['param'].to_i, ['Chaos', 'Psychic'])
+						other_hero.mana_change_all!(
+							-1 * ability['param'].to_i, ['Chaos', 'Psychic']
+						)
 						other_hero.mana_change!(ability['param'].to_i, 'Chaos')
 
-					# Each enemy creature take a number of damage equal to it's attack * @param
+					# Each enemy creature take a number of damage equal
+					# to it's attack * @param
 					when 'Justice'
-						other_hero.do_damage_creatures!(slot.attack * ability['param'].to_i, :magic)
+						other_hero.do_damage_creatures!(
+							slot.attack * ability['param'].to_i, :magic
+						)
 
-					# Damage to enemy hero and opposite creature equals to opposite creature's attack
+					# Damage to enemy hero and opposite creature equals
+					# to opposite creature's attack
 					when 'Hypnosis'
 						unless other_hero.field.position[position].empty?
 							other_hero.do_damage!(other_hero.field.position[position].attack)
-							other_hero.field.position[position].do_damage!(other_hero.field.position[position].attack)
+							other_hero.field.position[position].do_damage!(
+								other_hero.field.position[position].attack
+							)
 						end
 
 					# Damage to enemy hero equals to your @param mana + 3.

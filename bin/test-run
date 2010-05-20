@@ -14,7 +14,7 @@ include_path = File.expand_path(include_path)
 
 require "#{include_path}/ccg-base.rb"
 
-unless Ccg::VERSION == '0.2'
+unless Ccg::VERSION == '0.2-1'
 	$stderr.puts('Incompatible version of CCG library.')
 	exit(1)
 end
@@ -37,17 +37,17 @@ def do_test_attack(card_game, hero_num, type, index, position)
 	# 1 card per turn.
 
 	# End turn. Attacking.
-	card_game.state.end_turn!
+	card_game.end_hero_turn!
 
 	# Check heroes.
-	if current_hero.destroyed? or other_hero.destroyed?
+	if current_hero.destroyed? || other_hero.destroyed?
 		puts 'Someone is defeated...'
 	end
 end
 
 # Creating main game object
 card_game = Ccg::Game.new
-card_game.state.initial_player = :player_1
+card_game.initial_player = :player_1
 card_game.on(:creature_attacks) do |hero, creature_position|
 	# Keep in mind, that everything is already finished here,
 	# so there may be no creature by this time in this slot.
@@ -71,7 +71,7 @@ card_game.heroes[1].character_class = 'druid'
 card_game.heroes.each { |h| h.hand.shuffle! }
 
 # Game start.
-card_game.state.run!
+card_game.run!
 # -------------------------------------------------------------------
 2.times do |step|
 	# Will use step as position and card index for simplicity.

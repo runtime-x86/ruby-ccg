@@ -4,7 +4,7 @@
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2
+# Version: 0.2-1
 #
 # Note: Do not expect this code to call clone() or dup(). Do it manually :}
 
@@ -18,7 +18,7 @@ if RUBY_VERSION < '1.9'
 end
 
 module Ccg
-	VERSION = '0.2' # Game version
+	VERSION = '0.2-1' # Game version
 	lib_path = File.dirname(File.expand_path(__FILE__)).freeze
 	data_path = File.expand_path("#{lib_path}/../../share/ruby-ccg").freeze
 

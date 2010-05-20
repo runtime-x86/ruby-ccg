@@ -4,7 +4,7 @@
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2
+# Version: 0.2-1
 #
 # Do not use...
 # :enddoc:
