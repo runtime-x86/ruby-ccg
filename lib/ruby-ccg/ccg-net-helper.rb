@@ -1,10 +1,10 @@
-# encoding: utf-8
+# encoding: UTF-8
 #
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2-1
+# Version: 0.2-2
 #
 # Do not use...
 # :enddoc:
@@ -32,7 +32,7 @@ module Ccg
 		# Raises TypeError if card_names is not an Array.
 		# Raises exception if card_names is empty.
 		# Raises exception if any card was not found in local data.
-		def net_set_cards!(type, card_names)
+		def net_set_cards(type, card_names)
 			raise(TypeError, 'card_names parameter should be an Array.') unless card_names.instance_of?(Array)
 			raise('card_names parameter is empty.') if card_names.empty?
 

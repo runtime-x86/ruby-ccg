@@ -1,10 +1,10 @@
-# encoding: utf-8
+# encoding: UTF-8
 #
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2-1
+# Version: 0.2-2
 
 module Ccg
 	# Linear state machine. Or something.
@@ -30,7 +30,7 @@ module Ccg
 			self
 		end
 		# Activate initial action. Call after setting all on()'s.
-		def run!
+		def run
 			@started = true
 			action = @states_work[@current_state]
 			unless action.nil?
@@ -39,7 +39,7 @@ module Ccg
 			self
 		end
 		# Move to next state.
-		def next!
+		def next
 			@current_state_index += 1
 			if @current_state_index > 5
 				@current_state_index = 0
@@ -51,20 +51,20 @@ module Ccg
 			end
 			self
 		end
-		def end_turn!
+		def end_turn
 			end_index = (@current_state_index < 3) ? 2 : 5
 			@current_state_index.upto(end_index) do |index|
-				self.next!
+				self.next
 			end
 			self
 		end
 		# Resets state. on()'s are not reset thought.
-		def reset!
+		def reset
 			@current_state = :state_p1_start
 			@started = false
 			self
 		end
-		# Only use before calling run!
+		# Only use before calling run
 		#
 		# Throws: RuntimeError.
 		def initial_player=(player = :player_1)

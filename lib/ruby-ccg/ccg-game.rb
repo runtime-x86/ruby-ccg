@@ -1,10 +1,10 @@
-# encoding: utf-8
+# encoding: UTF-8
 #
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2-1
+# Version: 0.2-2
 
 module Ccg
 	# Main game class.
@@ -23,38 +23,38 @@ module Ccg
 			@state = State.new
 			@state.on(:state_p1_start) do
 				@w2p_card = nil; @w2p_card_at_pos = nil
-				@heroes[0].start_turn!
+				@heroes[0].start_turn
 			end
 			@state.on(:state_p1_act) do
 				unless @w2p_card.nil? || @w2p_card_at_pos.nil?
-					play_card!(0, @w2p_card, @w2p_card_at_pos)
+					play_card(0, @w2p_card, @w2p_card_at_pos)
 				end
 			end
 			@state.on(:state_p1_end) do
-				end_turn!(0)
+				end_turn(0)
 			end
 			@state.on(:state_p2_start) do
 				@w2p_card = nil; @w2p_card_at_pos = nil
-				@heroes[1].start_turn!
+				@heroes[1].start_turn
 			end
 			@state.on(:state_p2_act) do
 				unless @w2p_card.nil? || @w2p_card_at_pos.nil?
-					play_card!(1, @w2p_card, @w2p_card_at_pos)
+					play_card(1, @w2p_card, @w2p_card_at_pos)
 				end
 			end
 			@state.on(:state_p2_end) do
-				end_turn!(1)
+				end_turn(1)
 			end
-			self.start_new!
+			self.start_new
 			self
 		end
 
 		# Starts a new game. Resets state and heroes' info.
-		def start_new!
+		def start_new
 			@last_played_slot = nil
 			@game_first_step = true
 			@heroes = [Hero.new, Hero.new]
-			@state.reset!
+			@state.reset
 			self
 		end
 
@@ -89,14 +89,14 @@ module Ccg
 			nil # Nothing found
 		end
 
-		def end_hero_turn!
-			@state.end_turn!
+		def end_hero_turn
+			@state.end_turn
 			self
 		end
 
 		# Move to next state. Can cause end of turn.
-		def next_step!
-			@state.next!
+		def next_step
+			@state.next
 			self
 		end
 
@@ -121,15 +121,15 @@ module Ccg
 			@state.initial_player = x
 		end
 
-		# See Ccg::State#run! for details.
-		def run!
-			@state.run!
+		# See Ccg::State#run for details.
+		def run
+			@state.run
 			self
 		end
 
 		private
 
-		def play_card!(hero_num, card, position)
+		def play_card(hero_num, card, position)
 			# Check 'on-play' abilities.
 			current_hero = @heroes[hero_num] # Attacking hero
 			other_hero = @heroes[(hero_num - 1).abs] # Defending hero
@@ -141,57 +141,57 @@ module Ccg
 				case ability['name']
 					when 'Blast'
 						if other_hero.field.position[position].empty?
-							other_hero.do_damage!(ability['param'].to_i, :magic)
+							other_hero.do_damage(ability['param'].to_i, :magic)
 						else
-							other_hero.field.position[position].do_damage!(
+							other_hero.field.position[position].do_damage(
 								ability['param'].to_i, :magic
 							)
 						end
 
 					# Increase 'param' mana by 1.
 					when 'Boost'
-						current_hero.mana_change!(1, ability['param'])
+						current_hero.mana_change(1, ability['param'])
 
 					# Increase 'param' mana by 2.
 					when 'Charge'
-						current_hero.mana_change!(2, ability['param'])
+						current_hero.mana_change(2, ability['param'])
 
 					# Each enemy creature take a number of damage equal
 					# to it's cost * @param
 					when 'Disrupter'
-						other_hero.do_damage_creatures!(
+						other_hero.do_damage_creatures(
 							slot.cost * ability['param'].to_i, :magic
 						)
 
 					# Increase 'param' mana by 3.
 					when 'Drive'
-						current_hero.mana_change!(3, ability['param'])
+						current_hero.mana_change(3, ability['param'])
 
 					# Decrease foe 'param' mana by 1.
 					when 'Shock'
-						other_hero.mana_change!(-1, ability['param'])
+						other_hero.mana_change(-1, ability['param'])
 
 					# Decrease foe 'param' mana by 2.
 					when 'Awe'
-						other_hero.mana_change!(-2, ability['param'])
+						other_hero.mana_change(-2, ability['param'])
 
 					# Decrease Law mana by 'param' for both players.
 					when 'Law breaker'
-						current_hero.mana_change!(-1 * ability['param'].to_i, 'Law')
-						other_hero.mana_change!(-1 * ability['param'].to_i, 'Law')
+						current_hero.mana_change(-1 * ability['param'].to_i, 'Law')
+						other_hero.mana_change(-1 * ability['param'].to_i, 'Law')
 
 					# decreases all foe's mana (except Psychic and Chaos)
 					# by 'param', increases foe's Chaos mana by 'param'.
 					when 'Chaotic visage'
-						other_hero.mana_change_all!(
+						other_hero.mana_change_all(
 							-1 * ability['param'].to_i, ['Chaos', 'Psychic']
 						)
-						other_hero.mana_change!(ability['param'].to_i, 'Chaos')
+						other_hero.mana_change(ability['param'].to_i, 'Chaos')
 
 					# Each enemy creature take a number of damage equal
 					# to it's attack * @param
 					when 'Justice'
-						other_hero.do_damage_creatures!(
+						other_hero.do_damage_creatures(
 							slot.attack * ability['param'].to_i, :magic
 						)
 
@@ -199,65 +199,65 @@ module Ccg
 					# to opposite creature's attack
 					when 'Hypnosis'
 						unless other_hero.field.position[position].empty?
-							other_hero.do_damage!(other_hero.field.position[position].attack)
-							other_hero.field.position[position].do_damage!(
+							other_hero.do_damage(other_hero.field.position[position].attack)
+							other_hero.field.position[position].do_damage(
 								other_hero.field.position[position].attack
 							)
 						end
 
 					# Damage to enemy hero equals to your @param mana + 3.
 					when 'Raw power'
-						other_hero.do_damage!(current_hero.mana[ability['param']] + 3, :magic)
+						other_hero.do_damage(current_hero.mana[ability['param']] + 3, :magic)
 
 					when 'damage'
 						# self method
 						each_target(current_hero, other_hero, ability['target'], position) do |t|
-							t.do_damage!(ability['param'].to_i, :magic)
+							t.do_damage(ability['param'].to_i, :magic)
 						end
 
 					when 'heal'
 						each_target(current_hero, other_hero, ability['target'], position) do |t|
-							t.do_heal!(ability['param'].to_i)
+							t.do_heal(ability['param'].to_i)
 						end
 
 					when 'destroy'
 						each_target(current_hero, other_hero, ability['target'], position) do |t|
-							t.do_destroy!
+							t.do_destroy
 						end
 
 					when 'L-D mana swap'
-						current_hero.mana_swap!('Light', 'Darkness')
+						current_hero.mana_swap('Light', 'Darkness')
 				end # case
 			end # each
 
 			# Assign card to a slot.
 			if ['creature', 'wall'].include?(card['type'])
-				current_hero.field.position[position].assign!(card)
+				current_hero.field.position[position].assign(card)
 				@last_played_slot = position # Mark played slot.
 			end
 
 			# Check bonuses
 			@heroes.each do |hero|
-				hero.check_bonus!
+				hero.check_bonus
 			end
 
 			# Reduce mana
-			current_hero.mana_change!(-1 * card['cost'].to_i, card['base_mana_type'])
+			current_hero.mana_change(-1 * card['cost'].to_i, card['base_mana_type'])
 
 			# Additional cost for class cards
-			current_hero.mana_change!(-2, card['add']) unless card['add'].nil?
+			current_hero.mana_change(-2, card['add']) unless card['add'].nil?
 
 			self
 		end
 
 		# All creatures attack.
-		def end_turn!(hero_num)
+		def end_turn(hero_num)
 			current_hero = @heroes[hero_num] # Attacking hero
 			other_hero = @heroes[(hero_num - 1).abs] # Defending hero
 			(0..5).reject{ |num| num == @last_played_slot }.each do |x|
 				all_alive = !(current_hero.destroyed? || other_hero.destroyed?) 
 				if all_alive && !current_hero.field.position[x].empty?
-					creature_attack!(current_hero, other_hero, x) # self method
+					creature_attack(current_hero, other_hero, x) # self method
 					unless @closures[:creature_attacks].nil?
 						@closures[:creature_attacks].call(@heroes[hero_num], x)
 					end
@@ -267,7 +267,7 @@ module Ccg
 			if @game_first_step
 				# Mana boost for the 2nd player on the 1st turn.
 				other_hero.mana.each_key do |key|
-					other_hero.mana_change!(1, key)
+					other_hero.mana_change(1, key)
 				end
 				@game_first_step = false
 			end
@@ -278,7 +278,7 @@ module Ccg
 
 		# current_hero's creature in slot 'creature_position' atacks
 		# other_hero's creature (or other_hero itself)
-		def creature_attack!(current_hero, other_hero, creature_position)
+		def creature_attack(current_hero, other_hero, creature_position)
 			current_creature = current_hero.field.position[creature_position]
 			other_creature = other_hero.field.position[creature_position]
 
@@ -299,35 +299,35 @@ module Ccg
 					# Auto-destroys with attack any creature of 'wall' type.
 					when 'Annihilator'
 						unless other_creature.nil?
-							other_creature.do_destroy! if other_creature.card_type == 'wall'
+							other_creature.do_destroy if other_creature.card_type == 'wall'
 							annihilator_used = true
 						end
 
 					# Damages enemy creatures and hero by 1 every turn.
 					# Does NOT stack with itself.
 					when 'Frost'
-						other_hero.do_damage_all!(1) unless frost_used
+						other_hero.do_damage_all(1) unless frost_used
 
 					# Heals friendly creatures by @param every turn
 					# (but NOT itself).
 					when 'Healing aura'
-						current_hero.do_heal_all!(ability['param'].to_i, [creature_position])
+						current_hero.do_heal_all(ability['param'].to_i, [creature_position])
 
 					# Heals owner by @param every turn.
 					when 'Healing link'
-						current_hero.do_heal!(ability['param'].to_i)
+						current_hero.do_heal(ability['param'].to_i)
 
 					# Adds +1 @param mana every turn.
 					when 'Link'
-						current_hero.mana_change!(1, ability['param'])
+						current_hero.mana_change(1, ability['param'])
 
 					# Heals @param damage to itself every turn.
 					when 'Regeneration'
-						current_creature.do_heal!(ability['param'].to_i)
+						current_creature.do_heal(ability['param'].to_i)
 
 					# Deals @param damage to enemy hero every turn.
 					when 'Slayer'
-						other_hero.do_damage!(ability['param'].to_i)
+						other_hero.do_damage(ability['param'].to_i)
 
 					# Attacks all enemies, including enemy hero.
 					when 'Tactician'
@@ -354,17 +354,17 @@ module Ccg
 			end
 
 			if attack_type == :tactician
-				other_hero.do_damage_all!(attempt_damage)
+				other_hero.do_damage_all(attempt_damage)
 			else
 				# Creature attack unless 'annihilator_used' flag set.
 				unless annihilator_used
 					if other_creature.empty?
-						other_hero.do_damage!(attempt_damage)
+						other_hero.do_damage(attempt_damage)
 					else
-						other_creature.do_damage!(attempt_damage)
+						other_creature.do_damage(attempt_damage)
 						# Fierce creature strikes back!
 						if fierce_creature
-							current_creature.do_damage!(attempt_damage / 2)
+							current_creature.do_damage(attempt_damage / 2)
 							unless @closures[:creature_attacks].nil?
 								@closures[:creature_attacks].call(
 									other_hero, creature_position
@@ -376,7 +376,7 @@ module Ccg
 
 				if attack_type == :wave
 					# Do not damage current opposite slot twice
-					other_hero.do_damage_creatures!(
+					other_hero.do_damage_creatures(
 						attempt_damage, :normal, [creature_position]
 					)
 				end
@@ -384,12 +384,12 @@ module Ccg
 
 			# Apply 'Martyr' damage
 			unless (martyr_damage.nil? || current_creature.empty?)
-				current_creature.do_damage!(martyr_damage)
+				current_creature.do_damage(martyr_damage)
 			end
 
 			# Check bonuses for both heroes
 			@heroes.each do |hero|
-				hero.check_bonus!
+				hero.check_bonus
 			end
 
 			self

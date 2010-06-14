@@ -1,10 +1,10 @@
-# encoding: utf-8
+# encoding: UTF-8
 #
 # License: GPL v3 or any later version, http://www.gnu.org/licenses/gpl-3.0.txt
 #
 # Author: Tenno Seremel, http://serenareem.net/html/other/ruby-ccg.xml
 #
-# Version: 0.2-1
+# Version: 0.2-2
 
 module Ccg
 	# Represents creature slot on a battlefield.
@@ -14,12 +14,12 @@ module Ccg
 
 		def initialize(mana)
 			@owner_mana = mana
-			self.reset!
+			self.reset
 			self
 		end
 
 		# Slot is now empty.
-		def reset!
+		def reset
 			@card = nil
 			@abilities = nil
 			@hp = 0
@@ -34,7 +34,7 @@ module Ccg
 		end
 
 		# Assign some creature to this slot.
-		def assign!(card)
+		def assign(card)
 			# Card data (for abilities and actions).
 			@card = card
 
@@ -64,18 +64,18 @@ module Ccg
 			self
 		end
 
-		def boost_attack!(amount)
+		def boost_attack(amount)
 			@attack += amount
 		end
 
-		def reset_attack!
+		def reset_attack
 			@attack = @base_attack
 		end
 
 		# Deal specified amount of damage to this slot.
 		# It checks some abilities and call do_destroy if there is no HP left.
 		# types are :normal and :magic
-		def do_damage!(num, type = :normal)
+		def do_damage(num, type = :normal)
 			return self if (self.empty? || num <= 0) # Do nothing if slot is empty
 
 			# Check abilities first and calculate actual damage.
@@ -96,13 +96,13 @@ module Ccg
 				end
 			end
 			@hp -= actual_damage
-			self.do_destroy! if @hp <= 0
+			self.do_destroy if @hp <= 0
 			self
 		end
 
 		# Restores specified amount of HP to this slot.
 		# HP cannot become more than Max HP as a result.
-		def do_heal!(num)
+		def do_heal(num)
 			unless self.empty? || num <= 0 # Do nothing if slot is empty.
 				# Check abilities first (currently none).
 				@hp += num
@@ -112,10 +112,10 @@ module Ccg
 		end
 
 		# Creature in this slot is destroyed and slot is now empty.
-		def do_destroy!
+		def do_destroy
 			unless self.empty? # Do nothing if slot is empty
 				# Check 'on destroy abilities' (currently none) then reset.
-				self.reset!
+				self.reset
 			end
 			self
 		end

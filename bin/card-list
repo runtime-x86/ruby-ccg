@@ -12,7 +12,7 @@ include_path = File.expand_path(include_path)
 
 require "#{include_path}/ccg-base.rb"
 
-unless Ccg::VERSION == '0.2'
+unless Ccg::VERSION == '0.2-2'
 	$stderr.puts('Incompatible version of CCG library.')
 	exit(1)
 end

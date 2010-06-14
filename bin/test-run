@@ -14,7 +14,7 @@ include_path = File.expand_path(include_path)
 
 require "#{include_path}/ccg-base.rb"
 
-unless Ccg::VERSION == '0.2-1'
+unless Ccg::VERSION == '0.2-2'
 	$stderr.puts('Incompatible version of CCG library.')
 	exit(1)
 end
@@ -37,7 +37,7 @@ def do_test_attack(card_game, hero_num, type, index, position)
 	# 1 card per turn.
 
 	# End turn. Attacking.
-	card_game.end_hero_turn!
+	card_game.end_hero_turn
 
 	# Check heroes.
 	if current_hero.destroyed? || other_hero.destroyed?
@@ -55,7 +55,7 @@ card_game.on(:creature_attacks) do |hero, creature_position|
 	puts "\t#{hero.name}'s creature in slot #{creature_position} attacks!"
 end
 
-# There is card_game.start_new! method to start a new game after another one was complete.
+# There is card_game.start_new method to start a new game after another one was complete.
 # It clears ALL hero data. It will NOT clear on()'s closures.
 
 # -------------------------------------------------------------------
@@ -68,10 +68,10 @@ card_game.heroes[0].character_class = 'shinigami'
 card_game.heroes[1].character_class = 'druid'
 
 # Shuffle cards
-card_game.heroes.each { |h| h.hand.shuffle! }
+card_game.heroes.each { |h| h.hand.shuffle }
 
 # Game start.
-card_game.run!
+card_game.run
 # -------------------------------------------------------------------
 2.times do |step|
 	# Will use step as position and card index for simplicity.
